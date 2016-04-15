@@ -4,6 +4,8 @@ A command line utility for managing semantic versions.
 
 # Install
 
+Either go to the [Releases](https://github.com/robzienert/semver-cli/releases), or you can install with Go:
+
 ```
 $ go get github.com/robzienert/semver-cli
 ```
