@@ -1,0 +1,4 @@
+package: github.com/robzienert/semver-cli
+import:
+- package: github.com/alecthomas/kingpin
+- package: github.com/coreos/go-semver

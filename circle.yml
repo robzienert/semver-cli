@@ -1,0 +1,24 @@
+---
+machine:
+  environment:
+    GO15VENDOREXPERIMENT: 1
+    IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+    GOSRC_PATH: /home/ubuntu/.go_workspace/src
+
+dependencies:
+  pre:
+  - go get github.com/Masterminds/glide
+  - go get github.com/mitchellh/gox
+  - go get github.com/aktau/github-release
+  
+  override:
+  - glide i
+  
+  post:
+  - mkdir -p "$GOSRC_PATH/$IMPORT_PATH"
+  - rsync -az --include ".git*" --delete ./ "$GOSRC_PATH/$IMPORT_PATH/"
+
+test:
+  override:
+  - cd "$GOSRC_PATH/$IMPORT_PATH/" && go vet $(glide nv)
+  - cd "$GOSRC_PATH/$IMPORT_PATH/" && go test -v $(glide nv) 
